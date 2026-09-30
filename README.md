@@ -12,11 +12,14 @@
 
 ```bash
 docker run -d --name miaospeed --restart unless-stopped \
-  -p 8080:8080 -e TOKEN=你的token \
+  -p 9966:9966 \
+  -e MIAOSPEED_MTLS=1 \
+  -e MIAOSPEED_IPV6=1 \
+  -e MIAOSPEED_TOKEN=你的token \
   ghcr.io/ohmycggk/miaospeed:latest
 ```
 
-镜像构建期会自动生成所需的证书与默认脚本，开箱即用。完整部署说明见 [DEPLOY.md](DEPLOY.md)。
+也兼容 `TOKEN` 和现有的 `MIAOSPEED_*` Compose，容器内默认监听 `9966`。镜像构建期会自动生成所需的证书与默认脚本，开箱即用。完整部署说明见 [DEPLOY.md](DEPLOY.md)。
 
 ### 二进制
 

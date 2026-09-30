@@ -50,7 +50,8 @@ RUN apk add --no-cache ca-certificates tzdata
 COPY --from=build /out/miaospeed /usr/local/bin/miaospeed
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
-EXPOSE 8080
+ENV TZ=Asia/Shanghai
+EXPOSE 9966
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["server"]

@@ -14,6 +14,7 @@ type GlobalConfig struct {
 	ConnTaskTreading uint
 	MiaoKoSignedTLS  bool
 	NoSpeedFlag      bool
+	EnableIPv6       bool
 	MaxmindDB        string
 }
 

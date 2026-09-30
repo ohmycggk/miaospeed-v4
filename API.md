@@ -6,14 +6,14 @@
 
 ## 1. 通信模型
 
-- 通道：**WebSocket**，端点接受**任意路径**的 Upgrade 请求，即 `ws://<host>:8080/`（启用 `-mtls` 时为 `wss://`）。
+- 通道：**WebSocket**，端点接受**任意路径**的 Upgrade 请求，即 `ws://<host>:9966/`（启用 `-mtls` 时为 `wss://`）。
 - 消息：全部为**一条 JSON 文本帧**。控制端每下发一个任务发送一个 `SlaveRequest`；后端回推若干条 `SlaveResponse`。
 - 同一连接可连续下发多个任务；**连接断开时，该连接上所有未完成任务会被取消**。
 - 普通 HTTP 请求访问端口会返回 `400 Bad Request`，属正常现象。
 
 ## 2. 鉴权与签名
 
-后端启动时通过 `-token` 设置「启动TOKEN」；构建时固化「编译TOKEN」（Docker 构建经 secret `BUILDTOKEN` 注入，默认占位值 `miaospeed|docker`）。
+后端启动时通过 `-token`（容器里对应 `MIAOSPEED_TOKEN`，未设置时回退 `TOKEN`）设置「启动TOKEN」；构建时固化「编译TOKEN」（Docker 构建经 secret `BUILDTOKEN` 注入，默认占位值 `miaospeed|docker`）。
 
 ### 2.1 签名算法（aws-v4 风格链式 SHA512）
 

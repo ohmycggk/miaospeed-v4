@@ -5,9 +5,17 @@ import (
 	"fmt"
 	"net"
 
+	"github.com/metacubex/mihomo/component/resolver"
 	"github.com/metacubex/mihomo/constant"
 	"github.com/miaokobot/miaospeed/interfaces"
+	"github.com/miaokobot/miaospeed/utils"
 )
+
+func setupIPv6() {
+	if utils.GCFG.EnableIPv6 && resolver.DisableIPv6 {
+		resolver.DisableIPv6 = false
+	}
+}
 
 type Clash struct {
 	proxy constant.Proxy
@@ -37,6 +45,7 @@ func (c *Clash) DialTCP(ctx context.Context, url string, network interfaces.Requ
 	if c == nil || c.proxy == nil {
 		return nil, fmt.Errorf("should call Build() before run")
 	}
+	setupIPv6()
 
 	addr, err := urlToMetadata(url, constant.TCP)
 	if err != nil {
@@ -50,6 +59,7 @@ func (c *Clash) DialUDP(ctx context.Context, url string) (net.PacketConn, error)
 	if c == nil || c.proxy == nil {
 		return nil, fmt.Errorf("should call Build() before run")
 	}
+	setupIPv6()
 
 	addr, err := urlToMetadata(url, constant.UDP)
 	if err != nil {

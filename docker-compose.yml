@@ -1,0 +1,17 @@
+services:
+  miaospeed:
+    container_name: miaospeed
+    image: ghcr.io/ohmycggk/miaospeed:latest
+    restart: "unless-stopped"
+    ports:
+      - "9966:9966"
+    environment:
+      - TZ=Asia/Shanghai
+      - MIAOSPEED_MTLS=1
+      - MIAOSPEED_IPV6=1
+      - MIAOSPEED_TOKEN=xxxxx
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200m"
+        max-file: "3"
